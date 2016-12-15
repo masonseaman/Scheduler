@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_new_course"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mason.software.scheduler.AddNewCourse">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Course Name"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/courseName" />
+
+    <ToggleButton
+        android:textOff="M"
+        android:textOn="M"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/courseName"
+        android:layout_alignParentStart="true"
+        android:id="@+id/monday" />
+
+    <ToggleButton
+        android:textOff="T"
+        android:textOn="T"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/monday"
+        android:layout_toEndOf="@+id/monday"
+        android:id="@+id/tuesday" />
+
+    <ToggleButton
+        android:textOff="W"
+        android:textOn="W"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tuesday"
+        android:layout_toEndOf="@+id/tuesday"
+        android:id="@+id/wednesday" />
+
+    <ToggleButton
+        android:textOff="TH"
+        android:textOn="TH"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/thursday"
+        android:layout_toEndOf="@+id/wednesday"
+        android:layout_alignBottom="@+id/wednesday"
+        />
+    <ToggleButton
+        android:textOff="F"
+        android:textOn="F"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thursday"
+        android:layout_toEndOf="@+id/thursday"
+        android:id="@+id/friday" />
+
+    <Button
+        android:text="Add course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/addCourse" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:hint="end time"
+        android:ems="10"
+        android:id="@+id/endTime"
+        android:layout_below="@+id/startTime"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:hint="start time"
+        android:ems="10"
+        android:id="@+id/startTime"
+        android:layout_below="@+id/monday"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
