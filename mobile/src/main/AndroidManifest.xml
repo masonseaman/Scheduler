@@ -19,7 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".DatabaseOpenHelper" />
-        <activity android:name=".AddNewCourse"></activity>
+        <activity android:name=".AddNewCourse" />
+        <activity
+            android:name=".AssignmentsList"
+            android:label="@string/title_activity_assignments_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddNewAssignment"></activity>
     </application>
 
 </manifest>

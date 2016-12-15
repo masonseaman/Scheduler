@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         );
     }
 
-    public boolean addCourse(String courseTitle, String daysOfWeek, String time, String courseLocation, String assignmentTitle, String dueDate, String description){
+    public boolean addToDatabase(String courseTitle, String daysOfWeek, String time, String courseLocation, String assignmentTitle, String dueDate, String description){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues(4);
         contentValues.put("courseTitle", courseTitle);
@@ -61,6 +62,20 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
             al.add(res.getString(res.getColumnIndex(COURSETITLE)));
+            res.moveToNext();
+        }
+        return al;
+    }
+
+    public ArrayList<String> getAssignments(String courseName){
+        ArrayList<String> al = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select assignmentTitle from schedule where courseTitle='" + courseName + "'",null);
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            if(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)).equals(""))
+                al.add(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)));
             res.moveToNext();
         }
         return al;

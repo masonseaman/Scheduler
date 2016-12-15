@@ -44,6 +44,15 @@ public class CourseList extends AppCompatActivity {
         final ListView list = (ListView) findViewById(R.id.list);
         list.setAdapter(arrayAdapter);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getBaseContext(), AssignmentsList.class);
+                intent.putExtra("courseName", list.getItemAtPosition(position).toString());
+                startActivity(intent);
+            }
+        });
+
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int position, long l) {

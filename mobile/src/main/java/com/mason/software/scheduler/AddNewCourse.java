@@ -85,7 +85,7 @@ public class AddNewCourse extends AppCompatActivity {
                     Snackbar.make(view, "Course Already Exists", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 } else {
-                    myDbHelper.addCourse(courseName.getText().toString().toUpperCase(), daysOfWeek, startTime.getText().toString() + " - " + endTime.getText().toString(), "", "", "", "");
+                    myDbHelper.addToDatabase(courseName.getText().toString().toUpperCase(), daysOfWeek, startTime.getText().toString() + " - " + endTime.getText().toString(), "", "", "", "");
                     Intent intent = new Intent(getBaseContext(),CourseList.class);
                     startActivity(intent);
                 }
