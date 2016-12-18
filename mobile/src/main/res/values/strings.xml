@@ -2,4 +2,6 @@
     <string name="app_name">Scheduler</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_assignments_list">AssignmentsList</string>
+    <string name="title_activity_recycle_test">RecycleTest</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

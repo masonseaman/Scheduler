@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-    final private static String NAME = "artist_db";
+    final private static String NAME = "schedule";
     final private static Integer VERSION = 1;
     final private Context context;
 
@@ -23,7 +23,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String COURSELOCATION = "courseLocation";
     public static final String ASSIGNMENTTITLE = "assignmentTitle";
     public static final String DUEDUATE = "dueDate";
-    public static final String DESCRIPTION = "assignmentDescription";
+    public static final String DESCRIPTION = "description";
 
 
     public DatabaseOpenHelper(Context context) {
@@ -54,6 +54,72 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public String getDaysofweek(String courseTitle){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select daysOfWeek from schedule where courseTitle='" + courseTitle + "'", null);
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex(DAYSOFWEEK));
+    }
+
+    public String getCourseTime(String courseTitle){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select time from schedule where courseTitle = '" + courseTitle + "'",null);
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex(TIME));
+    }
+
+    public String getCourselocation(String courseTitle){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select courseLocation from schedule where courseTitle = '" + courseTitle + "'",null);
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex(COURSELOCATION));
+    }
+
+    public String getDueDate(String assignmentTitle){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select dueDate from schedule where assignmentTitle = '" + assignmentTitle + "'", null);
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex(DUEDUATE));
+    }
+
+    public String getDescription(String assignmentTitle){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select description from schedule where assignmentTitle = '" + assignmentTitle + "'", null);
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex(DESCRIPTION));
+    }
+
+    public void setDescription(String assignmentTitle, String newDescription){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("description", newDescription);
+        db.update(NAME, cv, "assignmentTitle ='" + assignmentTitle + "'",null);
+    }
+
+    public void setCourseTime(String courseTitle, String newCourseTime){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("time", newCourseTime);
+        db.update(NAME, cv, "time ='" + newCourseTime + "'",null);
+    }
+
+
+    public boolean updateEntry(String courseTitle, String daysOfWeek, String time, String courseLocation, String assignmentTitle, String dueDate, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues(4);
+        contentValues.put("courseTitle", courseTitle);
+        contentValues.put("daysOfWeek", daysOfWeek);
+        contentValues.put("time", time);
+        contentValues.put("courseLocation", courseLocation);
+        contentValues.put("assignmentTitle", assignmentTitle);
+        contentValues.put("dueDate", dueDate);
+        contentValues.put("description", description);
+
+        db.update("schedule", contentValues, "courseTitle='"+courseTitle+"'", null);
+        return true;
+    }
+
+
     public ArrayList<String> getCourses(){
         ArrayList<String> al = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -73,11 +139,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select assignmentTitle from schedule where courseTitle='" + courseName + "'",null);
         res.moveToFirst();
 
-        while(res.isAfterLast() == false){
-            if(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)).equals(""))
-                al.add(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)));
+        while(res.isAfterLast() == false) {
+            //if(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)).equals(""))
+            al.add(res.getString(res.getColumnIndex(ASSIGNMENTTITLE)));
             res.moveToNext();
         }
+        for(int i=0;i<al.size();i++) {
+            System.out.println(al.get(i));
+            if(al.get(i).equals(""))
+                al.remove(i);
+        }
+
         return al;
     }
 
@@ -87,6 +159,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         while(res.isAfterLast()==false){
             res.moveToNext();
         }
+    }
+
+    public void removeAssignment(String assignmentName, String courseName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("delete from schedule where assignmentTitle='" + assignmentName + "' and courseTitle='" + courseName + "'", null);
+        while(res.isAfterLast()==false)
+            res.moveToNext();
     }
 
     @Override

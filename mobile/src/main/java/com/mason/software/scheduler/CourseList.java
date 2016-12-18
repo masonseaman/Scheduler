@@ -61,7 +61,11 @@ public class CourseList extends AppCompatActivity {
                         .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                Intent intent = new Intent(getBaseContext(),EditCourse.class);
+                                intent.putExtra("daysOfWeek", myDbHelper.getDaysofweek(list.getItemAtPosition(position).toString()));
+                                intent.putExtra("courseName", list.getItemAtPosition(position).toString());
+                                intent.putExtra("time", myDbHelper.getCourseTime(list.getItemAtPosition(position).toString()));
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
@@ -117,6 +121,7 @@ public class CourseList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     protected void onResume(){
         super.onResume();
 
@@ -125,5 +130,9 @@ public class CourseList extends AppCompatActivity {
 
         final ListView list = (ListView) findViewById(R.id.list);
         list.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void onBackPressed(){
     }
 }

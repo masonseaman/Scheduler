@@ -20,21 +20,23 @@
         android:layout_alignParentStart="true"
         android:id="@+id/assignmentTitle" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:hint="Due Date"
+        android:textSize="25dp"
         android:ems="10"
         android:layout_below="@+id/assignmentTitle"
         android:layout_alignEnd="@+id/assignmentTitle"
         android:id="@+id/dueDate" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="time"
         android:hint="Due Time"
+        android:textSize="25dp"
         android:ems="10"
         android:layout_below="@+id/dueDate"
         android:layout_alignEnd="@+id/dueDate"
@@ -58,4 +60,5 @@
         android:layout_below="@+id/assignmentDescription"
         android:layout_alignParentStart="true"
         android:id="@+id/create" />
+
 </RelativeLayout>
