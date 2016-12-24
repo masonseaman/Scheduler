@@ -26,7 +26,7 @@ public class IntroActivity extends AppIntro {
             startActivity(intent);
         }
 
-        addSlide(AppIntroFragment.newInstance("Welcome to Scheduler","An app to help you organize your courses and assignments", R.drawable.penpaper, ContextCompat.getColor(getApplicationContext(),R.color.colorAccent)));
+        addSlide(AppIntroFragment.newInstance("Welcome to Scheduler","An app to help you organize your courses and assignments", R.drawable.schedule, ContextCompat.getColor(getApplicationContext(),R.color.colorAccent)));
         addSlide(AppIntroFragment.newInstance("Location permissions","Scheduler uses your location to find classroom buildings near you", R.drawable.gps, ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary)));
         addSlide(AppIntroFragment.newInstance("Enjoy Scheduler!","Get Started", R.drawable.check,Color.DKGRAY));
 

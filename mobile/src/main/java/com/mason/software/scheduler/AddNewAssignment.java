@@ -83,7 +83,7 @@ DatabaseOpenHelper myDbHelper = new DatabaseOpenHelper(this);
                             "",
                             "",
                             assignmentTitle.getText().toString(),
-                            dueDate.getText().toString() + dueTime.getText().toString(),
+                            dueDate.getText().toString() + " " + dueTime.getText().toString(),
                             description.getText().toString());
 
                     Intent intent = new Intent(getBaseContext(), AssignmentsList.class);

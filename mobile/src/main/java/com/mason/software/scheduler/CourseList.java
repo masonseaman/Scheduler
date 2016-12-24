@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 
 public class CourseList extends AppCompatActivity {
     DatabaseOpenHelper myDbHelper = new DatabaseOpenHelper(this);
+    String[] drawerItems = new String[1];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,33 @@ public class CourseList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Course List");
+
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ListView drawer = (ListView) findViewById(R.id.left_drawer);
+        drawerItems[0] = "Sign in with Google";
+        dl.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawer.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, drawerItems));
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setHomeButtonEnabled(true);
+        ActionBarDrawerToggle mDrawerToggle;
+        mDrawerToggle = new ActionBarDrawerToggle(
+                CourseList.this,                  /* host Activity */
+                dl,         /* DrawerLayout object */
+                toolbar,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_closed /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle("Title");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle("Drawer Title");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        dl.addDrawerListener(mDrawerToggle);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +146,8 @@ public class CourseList extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
